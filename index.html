@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 Ay, 12 Girişim | 12in12.co</title>
+    
+    <!-- Google Fonts: Manrope (Başlıklar) ve Inter (Metinler) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Material Symbols (İkonlar) -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0..1&display=swap" rel="stylesheet" />
+    
+    <!-- FontAwesome (Sosyal Medya İkonları) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Konfigürasyonu -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        background: '#0a0a0c',
+                        surface: 'rgba(255, 255, 255, 0.03)',
+                        surfaceHover: 'rgba(255, 255, 255, 0.06)',
+                        borderLight: 'rgba(255, 255, 255, 0.08)',
+                        primary: '#8b5cf6',
+                        primaryGlow: 'rgba(139, 92, 246, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a0c;
+            color: #e2e8f0;
+        }
+        .ambient-light-1 {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(110, 59, 216, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .ambient-light-2 {
+            position: fixed;
+            bottom: -10%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(0, 104, 123, 0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        .bento-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 40px -10px var(--tw-colors-primaryGlow);
+            background-color: var(--tw-colors-surfaceHover);
+            border-color: rgba(255, 255, 255, 0.15);
+            z-index: 10;
+        }
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+            transform: scale(1.05);
+        }
+        /* Özel Scrollbar (Modal içi için) */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary selection:text-white">
+
+    <div class="ambient-light-1"></div>
+    <div class="ambient-light-2"></div>
+
+    <nav class="fixed top-0 w-full z-50 bg-[#0a0a0c]/70 backdrop-blur-xl border-b border-borderLight">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl sm:text-2xl font-display font-light tracking-tighter text-violet-400 shrink-0">
+                12in12.co
+            </a>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="#" class="text-violet-400 font-medium border-b border-violet-500/50 pb-1 text-sm tracking-wide">Girişimler</a>
+                <a href="#" id="aboutLink" class="text-slate-400 hover:text-violet-400 transition-colors text-sm tracking-wide">Ne Yapıyorum?</a>
+                <div class="flex items-center gap-5 border-l border-slate-800 pl-8">
+                    <a href="#" id="contactLink" class="text-slate-400 hover:text-white transition-colors flex items-center gap-1.5 text-sm">
+                        <span class="material-symbols-outlined text-[18px]">mail</span>
+                        İletişim
+                    </a>
+                    <div class="flex gap-4">
+                        <a href="https://x.com/12Coin12Mo" target="_blank" class="text-slate-500 hover:text-white transition-colors"><i class="fa-brands fa-x-twitter text-[18px]"></i></a>
+                        <a href="https://www.instagram.com/12coin12mo/" target="_blank" class="text-slate-500 hover:text-white transition-colors"><i class="fa-brands fa-instagram text-[18px]"></i></a>
+                        <a href="https://www.youtube.com/@12Coin12Mo" target="_blank" class="text-slate-500 hover:text-white transition-colors"><i class="fa-brands fa-youtube text-[18px]"></i></a>
+                        <a href="https://www.tiktok.com/@12coin12mo" target="_blank" class="text-slate-500 hover:text-white transition-colors"><i class="fa-brands fa-tiktok text-[18px]"></i></a>
+                    </div>
+                </div>
+            </div>
+            <button id="waitlistBtn" class="bg-violet-600 hover:bg-violet-500 text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all btn-glow whitespace-nowrap">
+                Bekleme Listesine Katıl
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-20 px-6 max-w-7xl mx-auto w-full">
+        <header class="text-center mb-16">
+            <h1 class="font-display text-5xl md:text-7xl font-extralight tracking-tight text-white mb-8">
+                12 Ay, <span class="text-violet-400 font-normal">12 Girişim</span>
+            </h1>
+            
+            <!-- 12 Ayın Neresindeyiz? İlerleme Çubuğu -->
+            <div class="flex flex-col items-center gap-4 w-full max-w-2xl mx-auto mt-8">
+                <span class="text-xs font-medium tracking-widest text-slate-400 uppercase">12 Ayın Neresindeyiz?</span>
+                <div class="flex w-full gap-1.5 sm:gap-2">
+                    <div class="flex-1 h-2 rounded-full bg-violet-500 shadow-[0_0_12px_rgba(139,92,246,0.8)] relative group cursor-help">
+                        <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#121214] border border-white/10 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Ay 01: Tamamlandı</div>
+                    </div>
+                    <div class="flex-1 h-2 rounded-full bg-violet-500 shadow-[0_0_12px_rgba(139,92,246,0.8)] relative group cursor-help">
+                        <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#121214] border border-white/10 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Ay 02: Tamamlandı</div>
+                    </div>
+                    <div class="flex-1 h-2 rounded-full bg-violet-500/20 border border-violet-400/80 animate-pulse relative group cursor-help">
+                        <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#121214] border border-white/10 text-violet-300 text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Ay 03: Üzerinde Çalışılıyor</div>
+                    </div>
+                    <div class="flex-1 h-2 rounded-full bg-slate-800 opacity-30"></div>
+                    <div class="flex-1 h-2 rounded-full bg-slate-800 opacity-30"></div>
+                    <div class="flex-1 h-2 rounded-full bg-slate-800 opacity-30"></div>
+                    <div class="flex-1 h-2 rounded-full bg-slate-800 opacity-30"></div>
+                    <div class="flex-1 h-2 rounded-full bg-slate-800 opacity-30"></div>
+                    <div class="flex-1 h-2 rounded-full bg-slate-800 opacity-30"></div>
+                    <div class="flex-1 h-2 rounded-full bg-slate-800 opacity-30"></div>
+                    <div class="flex-1 h-2 rounded-full bg-slate-800 opacity-30"></div>
+                    <div class="flex-1 h-2 rounded-full bg-slate-800 opacity-30"></div>
+                </div>
+                <div class="flex w-full justify-between text-[10px] text-slate-500 font-medium px-1">
+                    <span>Başlangıç</span>
+                    <span>Bitiş</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[16rem]">
+            <!-- Girişim 01 -->
+            <div data-project="1" class="bento-card cursor-pointer bg-surface backdrop-blur-xl border border-borderLight rounded-2xl p-6 relative flex flex-col justify-between group">
+                <div class="absolute top-5 right-5 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-emerald-500/20 tracking-wider">
+                    AKTİF
+                </div>
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mb-5 border border-violet-500/20 group-hover:bg-violet-500/20 transition-colors">
+                        <span class="material-symbols-outlined text-violet-400 text-2xl icon-fill">palette</span>
+                    </div>
+                    <h3 class="font-display text-xl text-white font-light">Sümer Art Decoration</h3>
+                    <p class="text-slate-400 text-sm mt-1.5">Modern Dekorasyon Sanatı</p>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 02 -->
+            <div data-project="2" class="bento-card cursor-pointer bg-surface backdrop-blur-xl border border-borderLight rounded-2xl p-6 relative flex flex-col justify-between group">
+                <div class="absolute top-5 right-5 bg-blue-500/10 text-blue-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-blue-500/20 tracking-wider">
+                    YAYINDA
+                </div>
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-5 border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
+                        <span class="material-symbols-outlined text-blue-400 text-2xl icon-fill">language</span>
+                    </div>
+                    <h3 class="font-display text-xl text-white font-light">Sync-av</h3>
+                    <p class="text-slate-400 text-sm mt-1.5">Profesyonel Etkinlik Teknolojileri</p>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-400 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 03 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-surface backdrop-blur-xl border border-borderLight border-dashed rounded-2xl p-6 relative flex flex-col justify-between group">
+                <div class="absolute top-5 right-5 bg-slate-500/10 text-slate-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-slate-500/20 tracking-wider">
+                    HAZIRLIK
+                </div>
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800/50 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-500 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-400 font-light">Girişim 03</h3>
+                    <p class="text-slate-500 text-sm mt-1.5 italic">Yükleniyor...</p>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-500 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 04 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-surface/50 backdrop-blur-sm border border-borderLight/50 rounded-2xl p-6 relative flex flex-col justify-between group opacity-60 hover:opacity-100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800/30 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-600 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-500 font-light">Girişim 04</h3>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-500 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 05 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-surface/40 backdrop-blur-sm border border-borderLight/40 rounded-2xl p-6 relative flex flex-col justify-between group opacity-50 hover:opacity-100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800/30 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-600 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-600 font-light">Girişim 05</h3>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-500 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 06 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-surface/30 backdrop-blur-sm border border-borderLight/30 rounded-2xl p-6 relative flex flex-col justify-between group opacity-40 hover:opacity-100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800/30 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-600 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-600 font-light">Girişim 06</h3>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-500 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 07 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-surface/20 backdrop-blur-sm border border-borderLight/20 rounded-2xl p-6 relative flex flex-col justify-between group opacity-30 hover:opacity-100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800/30 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-700 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-700 font-light">Girişim 07</h3>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-600 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 08 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-surface/20 backdrop-blur-sm border border-borderLight/20 rounded-2xl p-6 relative flex flex-col justify-between group opacity-30 hover:opacity-100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800/30 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-700 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-700 font-light">Girişim 08</h3>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-600 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 09 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-surface/10 backdrop-blur-sm border border-borderLight/10 rounded-2xl p-6 relative flex flex-col justify-between group opacity-20 hover:opacity-100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800/30 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-800 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-800 font-light">Girişim 09</h3>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-600 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 10 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-surface/10 backdrop-blur-sm border border-borderLight/10 rounded-2xl p-6 relative flex flex-col justify-between group opacity-20 hover:opacity-100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-800/30 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-800 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-800 font-light">Girişim 10</h3>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-600 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 11 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-transparent border border-borderLight/5 rounded-2xl p-6 relative flex flex-col justify-between group opacity-10 hover:opacity-100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-900/50 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-800 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-800 font-light">Girişim 11</h3>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-600 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Girişim 12 -->
+            <div data-project="default" class="bento-card cursor-pointer bg-transparent border border-borderLight/5 rounded-2xl p-6 relative flex flex-col justify-between group opacity-10 hover:opacity-100">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-slate-900/50 flex items-center justify-center mb-5">
+                        <span class="material-symbols-outlined text-slate-800 text-2xl">lock</span>
+                    </div>
+                    <h3 class="font-display text-xl text-slate-800 font-light">Girişim 12</h3>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-slate-600 group-hover:text-violet-400 text-xs font-semibold flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        Süreci Gör <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full py-10 border-t border-borderLight bg-[#0a0a0c]/80 backdrop-blur-lg mt-auto">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col items-center md:items-start gap-1">
+                <span class="text-xl font-display font-light text-slate-200 tracking-tight">12in12.co</span>
+                <span class="text-[11px] text-slate-500 tracking-wide">© 2026 12in12.co - Dijital Girişimci Günlüğü.</span>
+            </div>
+            <div class="flex items-center gap-5 md:border-l border-slate-800 md:pl-8">
+                <a href="https://x.com/12Coin12Mo" target="_blank" class="text-slate-500 hover:text-violet-400 transition-colors"><i class="fa-brands fa-x-twitter text-[18px]"></i></a>
+                <a href="https://www.instagram.com/12coin12mo/" target="_blank" class="text-slate-500 hover:text-violet-400 transition-colors"><i class="fa-brands fa-instagram text-[18px]"></i></a>
+                <a href="https://www.youtube.com/@12Coin12Mo" target="_blank" class="text-slate-500 hover:text-violet-400 transition-colors"><i class="fa-brands fa-youtube text-[18px]"></i></a>
+                <a href="https://www.tiktok.com/@12coin12mo" target="_blank" class="text-slate-500 hover:text-violet-400 transition-colors"><i class="fa-brands fa-tiktok text-[18px]"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hakkımızda Modal Sistemi -->
+    <div id="aboutModal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div class="absolute inset-0 bg-[#0a0a0c]/90 backdrop-blur-md transition-opacity duration-300 opacity-0" id="aboutModalBackdrop"></div>
+        
+        <div class="relative w-full max-w-lg mx-6 bg-[#121214] border border-white/10 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.8)] p-8 transform scale-95 opacity-0 transition-all duration-300" id="aboutModalContent">
+            <button id="closeAboutModalBtn" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-1.5 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+            
+            <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mb-6 border border-violet-500/20">
+                <span class="material-symbols-outlined text-violet-400 text-2xl icon-fill">auto_awesome</span>
+            </div>
+            <h2 class="font-display text-2xl md:text-3xl text-white font-light mb-4">12 Ay, 12 Girişim: <span class="text-violet-400">Bir Gelecek İnşası</span></h2>
+            <p class="text-white text-base md:text-lg leading-relaxed font-sans">
+                12 Ay, 12 Girişim projesi, geleneksel girişimcilik kalıplarını yapay zeka ile yıkan modern bir serüvendir. Amacımız, 12 ay boyunca her ay yeni bir iş modelini sıfırdan inşa etmek ve bu süreci tüm şeffaflığıyla paylaşmaktır. Burada sadece ulaşılan sonuçları değil; uygulanan stratejileri, yapılan hataları ve teknolojiyle harmanlanmış üretim mutfağını bulacaksınız. Geleceği bugünden inşa etmeye odaklanıyoruz.
+            </p>
+        </div>
+    </div>
+
+    <!-- İletişim Modal Sistemi -->
+    <div id="contactModal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div class="absolute inset-0 bg-[#0a0a0c]/90 backdrop-blur-md transition-opacity duration-300 opacity-0" id="contactModalBackdrop"></div>
+        
+        <div class="relative w-full max-w-md mx-6 bg-[#121214] border border-white/10 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.8)] p-8 transform scale-95 opacity-0 transition-all duration-300" id="contactModalContent">
+            <button id="closeContactModalBtn" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-1.5 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+            
+            <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mb-6 border border-violet-500/20">
+                <span class="material-symbols-outlined text-violet-400 text-2xl icon-fill">mail</span>
+            </div>
+            <h2 class="font-display text-2xl md:text-3xl text-white font-light mb-6">Bize Ulaşın</h2>
+            
+            <div class="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center justify-between mb-8 group hover:border-violet-500/50 transition-colors">
+                <a href="mailto:build@12in12.co" class="text-slate-200 group-hover:text-white font-medium tracking-wide transition-colors">build@12in12.co</a>
+                <button onclick="navigator.clipboard.writeText('build@12in12.co'); alert('E-posta kopyalandı!');" class="text-slate-500 hover:text-violet-400 transition-colors p-2" title="Kopyala">
+                    <span class="material-symbols-outlined text-[20px]">content_copy</span>
+                </button>
+            </div>
+
+            <div class="border-t border-white/10 pt-6">
+                <p class="text-slate-400 text-sm mb-4">Sosyal Medya</p>
+                <div class="flex gap-4">
+                    <a href="https://x.com/12Coin12Mo" target="_blank" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-violet-500/50 transition-all">
+                        <i class="fa-brands fa-x-twitter text-[18px]"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@12Coin12Mo" target="_blank" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-violet-500/50 transition-all">
+                        <i class="fa-brands fa-youtube text-[18px]"></i>
+                    </a>
+                    <a href="https://www.instagram.com/12coin12mo/" target="_blank" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-violet-500/50 transition-all">
+                        <i class="fa-brands fa-instagram text-[18px]"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@12coin12mo" target="_blank" class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-violet-500/50 transition-all">
+                        <i class="fa-brands fa-tiktok text-[18px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bekleme Listesi Modal Sistemi -->
+    <div id="waitlistModal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div class="absolute inset-0 bg-[#0a0a0c]/90 backdrop-blur-md transition-opacity duration-300 opacity-0" id="waitlistModalBackdrop"></div>
+        
+        <div class="relative w-full max-w-md mx-6 bg-[#121214] border border-white/10 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.8)] p-8 transform scale-95 opacity-0 transition-all duration-300" id="waitlistModalContent">
+            <button id="closeWaitlistModalBtn" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-1.5 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+            
+            <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mb-6 border border-violet-500/20">
+                <span class="material-symbols-outlined text-violet-400 text-2xl icon-fill">notifications_active</span>
+            </div>
+            <h2 class="font-display text-2xl md:text-3xl text-white font-light mb-3">Geleceği Birlikte İzleyelim</h2>
+            <p class="text-slate-200 text-sm md:text-base leading-relaxed font-sans mb-6">
+                Her ay yayına alacağımız yeni girişimlerden ve öğrendiğimiz derslerden ilk sen haberdar ol.
+            </p>
+            <form id="waitlistForm" class="flex flex-col gap-3">
+                <input type="email" id="waitlistInput" placeholder="E-posta Adresin" required class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white text-sm focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/50 transition-all placeholder:text-slate-500">
+                <button type="submit" id="waitlistSubmitBtn" class="w-full bg-violet-600 hover:bg-violet-500 text-white px-8 py-3.5 rounded-xl text-sm font-medium transition-all btn-glow">
+                    Beni Haberdar Et
+                </button>
+                <div id="waitlistSuccessMsg" class="hidden w-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-5 py-3.5 rounded-xl text-sm font-medium text-center items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                    Harika! Listeye başarıyla eklendin.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dinamik Proje Modal Sistemi -->
+    <div id="projectModal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div class="absolute inset-0 bg-[#0a0a0c]/90 backdrop-blur-md transition-opacity duration-300 opacity-0" id="projectModalBackdrop"></div>
+        
+        <div class="relative w-full max-w-2xl mx-6 bg-[#121214] border border-white/10 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.8)] p-8 transform scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh] overflow-y-auto" id="projectModalContent">
+            <button id="closeProjectModalBtn" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-1.5 rounded-full flex items-center justify-center z-10">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+            
+            <div id="projectModalBody">
+                <!-- İçerik JS ile dinamik olarak buraya eklenecek -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Vanilla JS Modal Fonksiyonları -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- HAKKIMIZDA MODALI ---
+            const aboutLink = document.getElementById('aboutLink');
+            const aboutModal = document.getElementById('aboutModal');
+            const aboutModalBackdrop = document.getElementById('aboutModalBackdrop');
+            const closeAboutModalBtn = document.getElementById('closeAboutModalBtn');
+            const aboutModalContent = document.getElementById('aboutModalContent');
+
+            function openAboutModal(e) {
+                e.preventDefault();
+                document.body.style.overflow = 'hidden'; // Arka plan kaydırmayı kilitle
+                aboutModal.classList.remove('hidden');
+                aboutModal.classList.add('flex');
+                
+                setTimeout(() => {
+                    aboutModalBackdrop.classList.remove('opacity-0');
+                    aboutModalBackdrop.classList.add('opacity-100');
+                    aboutModalContent.classList.remove('scale-95', 'opacity-0');
+                    aboutModalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+
+            function closeAboutModal() {
+                document.body.style.overflow = ''; // Arka plan kaydırmayı aç
+                aboutModalBackdrop.classList.remove('opacity-100');
+                aboutModalBackdrop.classList.add('opacity-0');
+                aboutModalContent.classList.remove('scale-100', 'opacity-100');
+                aboutModalContent.classList.add('scale-95', 'opacity-0');
+                
+                setTimeout(() => {
+                    aboutModal.classList.remove('flex');
+                    aboutModal.classList.add('hidden');
+                }, 300);
+            }
+
+            aboutLink.addEventListener('click', openAboutModal);
+            closeAboutModalBtn.addEventListener('click', closeAboutModal);
+            aboutModalBackdrop.addEventListener('click', closeAboutModal);
+
+            // --- İLETİŞİM MODALI ---
+            const contactLink = document.getElementById('contactLink');
+            const contactModal = document.getElementById('contactModal');
+            const contactModalBackdrop = document.getElementById('contactModalBackdrop');
+            const closeContactModalBtn = document.getElementById('closeContactModalBtn');
+            const contactModalContent = document.getElementById('contactModalContent');
+
+            function openContactModal(e) {
+                e.preventDefault();
+                document.body.style.overflow = 'hidden';
+                contactModal.classList.remove('hidden');
+                contactModal.classList.add('flex');
+                
+                setTimeout(() => {
+                    contactModalBackdrop.classList.remove('opacity-0');
+                    contactModalBackdrop.classList.add('opacity-100');
+                    contactModalContent.classList.remove('scale-95', 'opacity-0');
+                    contactModalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+
+            function closeContactModal() {
+                document.body.style.overflow = '';
+                contactModalBackdrop.classList.remove('opacity-100');
+                contactModalBackdrop.classList.add('opacity-0');
+                contactModalContent.classList.remove('scale-100', 'opacity-100');
+                contactModalContent.classList.add('scale-95', 'opacity-0');
+                
+                setTimeout(() => {
+                    contactModal.classList.remove('flex');
+                    contactModal.classList.add('hidden');
+                }, 300);
+            }
+
+            contactLink.addEventListener('click', openContactModal);
+            closeContactModalBtn.addEventListener('click', closeContactModal);
+            contactModalBackdrop.addEventListener('click', closeContactModal);
+
+            // --- BEKLEME LİSTESİ MODALI ---
+            const waitlistBtn = document.getElementById('waitlistBtn');
+            const waitlistModal = document.getElementById('waitlistModal');
+            const waitlistModalBackdrop = document.getElementById('waitlistModalBackdrop');
+            const closeWaitlistModalBtn = document.getElementById('closeWaitlistModalBtn');
+            const waitlistModalContent = document.getElementById('waitlistModalContent');
+            
+            const waitlistForm = document.getElementById('waitlistForm');
+            const waitlistInput = document.getElementById('waitlistInput');
+            const waitlistSubmitBtn = document.getElementById('waitlistSubmitBtn');
+            const waitlistSuccessMsg = document.getElementById('waitlistSuccessMsg');
+
+            function openWaitlistModal(e) {
+                e.preventDefault();
+                document.body.style.overflow = 'hidden';
+                waitlistModal.classList.remove('hidden');
+                waitlistModal.classList.add('flex');
+                
+                setTimeout(() => {
+                    waitlistModalBackdrop.classList.remove('opacity-0');
+                    waitlistModalBackdrop.classList.add('opacity-100');
+                    waitlistModalContent.classList.remove('scale-95', 'opacity-0');
+                    waitlistModalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+
+            function closeWaitlistModal() {
+                document.body.style.overflow = '';
+                waitlistModalBackdrop.classList.remove('opacity-100');
+                waitlistModalBackdrop.classList.add('opacity-0');
+                waitlistModalContent.classList.remove('scale-100', 'opacity-100');
+                waitlistModalContent.classList.add('scale-95', 'opacity-0');
+                
+                setTimeout(() => {
+                    waitlistModal.classList.remove('flex');
+                    waitlistModal.classList.add('hidden');
+                    
+                    // Reset form state when closed
+                    waitlistSubmitBtn.classList.remove('hidden');
+                    waitlistSuccessMsg.classList.add('hidden');
+                    waitlistSuccessMsg.classList.remove('flex');
+                    waitlistInput.value = '';
+                }, 300);
+            }
+
+            waitlistBtn.addEventListener('click', openWaitlistModal);
+            closeWaitlistModalBtn.addEventListener('click', closeWaitlistModal);
+            waitlistModalBackdrop.addEventListener('click', closeWaitlistModal);
+
+            // Waitlist Form Submit Handler
+            waitlistForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if(waitlistInput.value) {
+                    waitlistSubmitBtn.classList.add('hidden');
+                    waitlistSuccessMsg.classList.remove('hidden');
+                    waitlistSuccessMsg.classList.add('flex');
+                    waitlistInput.value = '';
+                }
+            });
+
+            // --- PROJE MODALI (DİNAMİK) ---
+            const projectModal = document.getElementById('projectModal');
+            const projectModalBackdrop = document.getElementById('projectModalBackdrop');
+            const projectModalContent = document.getElementById('projectModalContent');
+            const closeProjectModalBtn = document.getElementById('closeProjectModalBtn');
+            const projectModalBody = document.getElementById('projectModalBody');
+            
+            // Tüm kartları seç (Tam Kart Tıklanabilirliği)
+            const bentoCards = document.querySelectorAll('.bento-card');
+
+            // Proje Veritabanı (JSON Objesi)
+            const projectData = {
+                '1': {
+                    title: "Sümer Art Decoration",
+                    icon: "palette",
+                    link: "https://sumerartdecoration.com",
+                    description: "Sümer Art Decoration, modern yaşam alanları için yapay zeka desteğiyle benzersiz poster ve tablo koleksiyonları tasarlayan yenilikçi bir sanat girişimidir. İsmini modern sanatın yalın ve estetik duruşundan alan markamız, dijital sanatı erişilebilir ve şık dekorasyon çözümlerine dönüştürür. sumerartdecoration.com üzerinden sunduğumuz kategorilerle, mekanların ruhuna dokunan tasarımlar üretiyoruz.",
+                    videos: [
+                        { title: "Giriş: Sümer Sanatı", url: "https://www.youtube.com/shorts/-zvekcmUGCU", active: true },
+                        { title: "AI Tasarım Süreci", url: "https://www.youtube.com/shorts/dMlgYZHXRuc", active: true },
+                        { title: "Üretim Aşamaları", url: "https://www.youtube.com/shorts/rBFHXBoc0Sk", active: true },
+                        { title: "Final Ürünler", url: "https://www.youtube.com/shorts/heaEeMk4oRM", active: true }
+                    ]
+                },
+                '2': {
+                    title: "Sync-av",
+                    icon: "language",
+                    link: "https://sync-av.co",
+                    description: "Atıl kapasiteyi kazanca dönüştürüyoruz. En iyi AV ekipmanlarına, en uygun fiyatlarla ulaşın. Profesyonel çözümler parmaklarınızın ucunda.",
+                    videos: [
+                        { title: "Tanıtım", url: "https://www.youtube.com/shorts/5_rCkpJkAk4", active: true },
+                        { title: "Çok Yakında", url: "#", active: false },
+                        { title: "Çok Yakında", url: "#", active: false },
+                        { title: "Çok Yakında", url: "#", active: false }
+                    ]
+                },
+                'default': {
+                    title: "Hazırlanıyor...",
+                    icon: "construction",
+                    link: "",
+                    description: "Bu projenin mutfağı henüz hazırlanıyor. Yakında tüm detaylar, gelişim süreci ve öğrenilen dersler burada olacak.",
+                    videos: []
+                }
+            };
+
+            function openProjectModal(projectId) {
+                const data = projectData[projectId] || projectData['default'];
+                
+                // Dinamik HTML Oluşturma
+                let html = `
+                    <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mb-6 border border-violet-500/20">
+                        <span class="material-symbols-outlined text-violet-400 text-2xl icon-fill">${data.icon}</span>
+                    </div>
+                    <h2 class="font-display text-2xl md:text-3xl text-white font-light mb-2">${data.title}</h2>
+                `;
+
+                if (data.link) {
+                    html += `
+                        <a href="${data.link}" target="_blank" class="inline-flex items-center gap-2 text-violet-400 hover:text-violet-300 text-base font-medium mb-6 transition-colors group">
+                            <span class="material-symbols-outlined text-[20px]">link</span> 
+                            <span class="border-b border-violet-400/30 group-hover:border-violet-300 transition-colors">${data.link}</span>
+                        </a>
+                    `;
+                } else {
+                    html += `<div class="mb-6"></div>`;
+                }
+
+                html += `<p class="text-slate-200 text-base md:text-lg leading-relaxed font-sans mb-8">${data.description}</p>`;
+
+                // Video Section (Numaralandırılmış Akış)
+                if (data.videos && data.videos.length > 0) {
+                    html += `
+                        <div class="border-t border-white/10 pt-8 mt-2">
+                            <h3 class="text-white font-medium mb-5 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-violet-400 text-[20px] icon-fill">play_circle</span> 
+                                Gelişim Süreci
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    `;
+                    data.videos.forEach((video, index) => {
+                        const stepNum = String(index + 1).padStart(2, '0');
+                        
+                        if (video.active) {
+                            html += `
+                                <a href="${video.url}" target="_blank" class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-violet-500 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all group">
+                                    <div class="w-10 h-10 shrink-0 rounded-lg bg-black/50 flex items-center justify-center group-hover:bg-violet-500/20 transition-colors border border-white/5 group-hover:border-violet-500/30">
+                                        <span class="text-violet-400 font-display font-bold text-sm">${stepNum}</span>
+                                    </div>
+                                    <span class="text-base text-slate-200 group-hover:text-white transition-colors font-medium">${video.title}</span>
+                                    <span class="material-symbols-outlined text-slate-500 group-hover:text-violet-400 ml-auto text-[18px] transition-colors">open_in_new</span>
+                                </a>
+                            `;
+                        } else {
+                            html += `
+                                <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 opacity-50 cursor-not-allowed">
+                                    <div class="w-10 h-10 shrink-0 rounded-lg bg-black/50 flex items-center justify-center border border-white/5">
+                                        <span class="text-slate-500 font-display font-bold text-sm">${stepNum}</span>
+                                    </div>
+                                    <span class="text-base text-slate-400 font-medium">${video.title}</span>
+                                    <span class="material-symbols-outlined text-slate-600 ml-auto text-[18px]">lock</span>
+                                </div>
+                            `;
+                        }
+                    });
+                    html += `</div></div>`;
+                }
+
+                projectModalBody.innerHTML = html;
+
+                document.body.style.overflow = 'hidden'; // Arka plan kaydırmayı kilitle
+                projectModal.classList.remove('hidden');
+                projectModal.classList.add('flex');
+                
+                setTimeout(() => {
+                    projectModalBackdrop.classList.remove('opacity-0');
+                    projectModalBackdrop.classList.add('opacity-100');
+                    projectModalContent.classList.remove('scale-95', 'opacity-0');
+                    projectModalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+
+            function closeProjectModal() {
+                document.body.style.overflow = ''; // Arka plan kaydırmayı aç
+                projectModalBackdrop.classList.remove('opacity-100');
+                projectModalBackdrop.classList.add('opacity-0');
+                projectModalContent.classList.remove('scale-100', 'opacity-100');
+                projectModalContent.classList.add('scale-95', 'opacity-0');
+                
+                setTimeout(() => {
+                    projectModal.classList.remove('flex');
+                    projectModal.classList.add('hidden');
+                }, 300);
+            }
+
+            // Kartların tamamına tıklama özelliği ekle
+            bentoCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const projectId = card.getAttribute('data-project');
+                    if(projectId) {
+                        openProjectModal(projectId);
+                    }
+                });
+            });
+
+            closeProjectModalBtn.addEventListener('click', closeProjectModal);
+            projectModalBackdrop.addEventListener('click', closeProjectModal);
+            
+            // --- ORTAK ESC TUŞU KONTROLÜ ---
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (!aboutModal.classList.contains('hidden')) {
+                        closeAboutModal();
+                    }
+                    if (!waitlistModal.classList.contains('hidden')) {
+                        closeWaitlistModal();
+                    }
+                    if (!contactModal.classList.contains('hidden')) {
+                        closeContactModal();
+                    }
+                    if (!projectModal.classList.contains('hidden')) {
+                        closeProjectModal();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
