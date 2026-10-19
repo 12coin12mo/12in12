@@ -393,6 +393,14 @@
         .vid.yakinda .ad { color: var(--soluk); }
         .vid.yakinda .ust-yazi { background: transparent; color: var(--renk); border: 1px solid var(--renk); }
 
+        /* ---------- Uzun videolar ---------- */
+        .uzunlar { padding: 72px 0 0; }
+        .uzun-izgara { display: grid; gap: 16px; margin-top: 40px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        .vid.yatay { width: 100%; aspect-ratio: 16 / 9; border-radius: 18px; }
+        .vid.yatay .ad { font-size: clamp(15px, 1.4vw, 18px); -webkit-line-clamp: 2; bottom: 16px; left: 16px; right: 16px; }
+        .vid.yatay .ust-yazi { left: 14px; top: 14px; background: var(--sari); }
+        .vid.yatay::after { background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%); }
+
         /* ---------- Sırada ---------- */
         .sirada { padding: 72px 0; }
         .sirada-kart {
@@ -520,6 +528,8 @@
         .oyn-ok:hover:not(:disabled) { border-color: var(--sari); color: var(--sari); }
         .oyn-ok:disabled { opacity: .25; cursor: default; }
         @media (min-width: 720px) { .oyn-ok { display: inline-flex; } }
+        .oynatici.yatay .oyn-kutu { width: min(92vw, calc((100vh - 170px) * 16 / 9), 1100px); }
+        .oynatici.yatay .oyn-cerceve { aspect-ratio: 16 / 9; }
 
         /* ---------- Görünme hareketi ---------- */
         .js .belir { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); }
@@ -578,6 +588,7 @@
             <nav class="menu" aria-label="Ana menü">
                 <a href="#yol">Yol haritası</a>
                 <a href="#girisimler">Girişimler</a>
+                <a href="#uzun" class="uzun-link" hidden>Uzun videolar</a>
                 <a href="#sirada">Sırada</a>
                 <a href="#hakkinda">Ne yapıyorum?</a>
                 <a href="#takip">İletişim</a>
@@ -592,7 +603,8 @@
         <nav class="mobil-menu" id="mobilMenu" aria-label="Mobil menü">
             <a href="#yol">Yol haritası</a>
             <a href="#girisimler">Girişimler</a>
-            <a href="#sirada">Sırada</a>
+            <a href="#uzun" class="uzun-link" hidden>Uzun videolar</a>
+                <a href="#sirada">Sırada</a>
             <a href="#hakkinda">Ne yapıyorum?</a>
             <a href="#takip">İletişim</a>
         </nav>
@@ -611,8 +623,8 @@
                         <a class="dugme dugme-cizgi" href="#hakkinda">Ne yapıyorum?</a>
                     </div>
                     <div class="sayilar">
-                        <div><b>4<span style="display:inline;color:var(--sonuk);font-size:.5em;margin:0 0 0 2px">/12</span></b><span>girişim yayında</span></div>
-                        <div><b>13</b><span>bölüm yayınlandı</span></div>
+                        <div><b><span id="sayiGirisim">4</span><span style="display:inline;color:var(--sonuk);font-size:.5em;margin:0 0 0 2px">/12</span></b><span>girişim yayında</span></div>
+                        <div><b id="sayiBolum">13</b><span>bölüm yayınlandı</span></div>
                         <div><b>01.26</b><span>Ocak 2026'da başladı</span></div>
                     </div>
                 </div>
@@ -621,7 +633,7 @@
                     <div class="isik"></div>
                     <svg class="gunes" viewBox="-100 -100 200 200" id="gunes"></svg>
                     <img class="maskot" src="/img/maskot-laptop.webp" width="749" height="900" alt="">
-                    <div class="rozet rozet-1"><span class="nokta"></span>Şu an: VetBrain</div>
+                    <div class="rozet rozet-1"><span class="nokta"></span><span id="suAn">Şu an: VetBrain</span></div>
                     <div class="rozet rozet-2">Sırada <b>Girişim 05</b></div>
                 </div>
             </div>
@@ -643,7 +655,7 @@
                         <h2 class="bolum-baslik">12 ışın, <em>12 şirket</em></h2>
                         <p class="bolum-alt">Logodaki her ışın bir girişim. Biri yayına çıktıkça bir ışın daha yanıyor.</p>
                     </div>
-                    <div class="yol-sayac" aria-label="12 girişimden 4'ü">04<small>/ 12</small></div>
+                    <div class="yol-sayac" id="yolSayac">04<small>/ 12</small></div>
                 </div>
                 <ol class="izgara belir" id="izgara"></ol>
             </div>
@@ -662,6 +674,18 @@
             </div>
         </section>
 
+        <!-- Uzun videolar (boşken gizli) -->
+        <section class="uzunlar" id="uzun" hidden>
+            <div class="kap">
+                <div class="belir">
+                    <div class="etiket">▶ · <b>Uzun videolar</b></div>
+                    <h2 class="bolum-baslik">Kısaya <em>sığmayanlar</em></h2>
+                    <p class="bolum-alt">Yatay, uzun ve ayrıntılı: her hafta YouTube'da.</p>
+                </div>
+                <div class="uzun-izgara belir" id="uzunIzgara"></div>
+            </div>
+        </section>
+
         <!-- Sırada -->
         <section class="sirada" id="sirada">
             <div class="kap">
@@ -669,12 +693,7 @@
                     <div class="son">
                         <div class="etiket">03 · <b>Sırada</b></div>
                         <h2 class="bolum-baslik">Yakında <em>yayında</em></h2>
-                        <ul class="liste">
-                            <li><span class="kod">PART 14</span><b>VetBrain: geliştirme</b><span>10 aşamada uygulamanın nasıl kurulduğu.</span></li>
-                            <li><span class="kod">PART 15</span><b>VetBrain: ilerleme</b><span>Plan dışı eklenenler ve sıradaki adımlar.</span></li>
-                            <li><span class="kod">UZUN 01</span><b>İlk uzun video</b><span>Kısa bölümlere sığmayanlar: YouTube'da, yatay ve uzun.</span></li>
-                            <li><span class="kod">GİRİŞİM 05</span><b>Yeni şirket hazırlanıyor</b><span>İlk duyuru videolarda.</span></li>
-                        </ul>
+                        <ul class="liste" id="siradaListe"></ul>
                         <div style="margin-top:28px"><a class="dugme dugme-cizgi" href="https://www.youtube.com/@12Coin12Mo?sub_confirmation=1" target="_blank" rel="noopener"><svg><use href="#i-yt"/></svg>Kaçırmamak için abone ol</a></div>
                     </div>
                     <img class="maskot" src="/img/maskot-dusunen.webp" width="304" height="640" alt="" loading="lazy">
@@ -774,83 +793,255 @@
         </div>
     </dialog>
 
+    <!--
+      İÇERİK — sitedeki bütün girişim/video verisi bu JSON bloğunda.
+      scripts/site-guncelle.mjs yeni Part ve uzun videoları orkestra kaydından buraya kendiliğinden ekler.
+      Elle düzenlerken geçerli JSON bırak (sondaki virgül yok). Kapak: public/img/v/<videoId>.webp; yoksa YouTube kapağı.
+    -->
+    <script type="application/json" id="icerik">
+{
+  "toplam": 12,
+  "girisimler": [
+    {
+      "no": "01",
+      "ad": "Sümer Art Decoration",
+      "renk": "#FF8A5B",
+      "durum": "Yayında",
+      "slogan": "Evinize sanat, duvarlarınıza karakter",
+      "metin": "Serinin ilk şirketi: yapay zekâ desteğiyle tasarlanan poster ve tablolar. 10 tematik koleksiyon ve sitede 9 odalı sanal ev turu var. E-ticaret sitesini 1 dolara kurup ilk satışı aldığım an Part 4’te.",
+      "site": "https://sumerartdecoration.com",
+      "siteAd": "sumerartdecoration.com",
+      "kanal": "https://www.youtube.com/@sumerartdecoration",
+      "kunye": [
+        "Part 1–4",
+        "Ocak 2026",
+        "Shopify"
+      ],
+      "bolumler": [
+        {
+          "id": "-zvekcmUGCU",
+          "part": 1,
+          "ad": "Yolculuk başlıyor: 1. ay Sümer Art"
+        },
+        {
+          "id": "dMlgYZHXRuc",
+          "part": 2,
+          "ad": "Yapay zekâyla tasarım süreci"
+        },
+        {
+          "id": "rBFHXBoc0Sk",
+          "part": 3,
+          "ad": "Kişiye özel suluboya poster"
+        },
+        {
+          "id": "heaEeMk4oRM",
+          "part": 4,
+          "ad": "1 dolara e-ticaret sitesi ve ilk satış"
+        }
+      ],
+      "marka": [
+        {
+          "id": "MrFfUxcNFeU",
+          "ad": "Çerçeveye sığmayan tablolar"
+        },
+        {
+          "id": "4QmQk-bta80",
+          "ad": "Hey Siri, mutfağı temizle!"
+        },
+        {
+          "id": "N1pJOetxxjc",
+          "ad": "Banyon da espriyi hak ediyor"
+        },
+        {
+          "id": "veoAvwVu9Ag",
+          "ad": "Bir mi, iki mi? Düşünmeden seç"
+        },
+        {
+          "id": "M8P4aAlbKOA",
+          "ad": "Banyo duvarına okunacak bir şey"
+        }
+      ],
+      "yakinda": []
+    },
+    {
+      "no": "02",
+      "ad": "Sync-av",
+      "renk": "#5B9BFF",
+      "durum": "Yayında",
+      "slogan": "Tek form, birden fazla teklif",
+      "metin": "Etkinlik organizatörü ses, ışık, görüntü ve simultane çeviri ihtiyacını tek formla giriyor; referanslı AV firmalarından gelen teklifleri yan yana karşılaştırıyor. Organizatör için ücretsiz; AV firmaları için de atıl ekipmanı kazanca çevirmenin yolu.",
+      "site": "https://sync-av.co",
+      "siteAd": "sync-av.co",
+      "kanal": "https://www.youtube.com/@syncavco",
+      "kunye": [
+        "Part 5–9",
+        "Şubat 2026",
+        "B2B"
+      ],
+      "bolumler": [
+        {
+          "id": "5_rCkpJkAk4",
+          "part": 5,
+          "ad": "Milyonluk cihazlar tozlanıyor"
+        },
+        {
+          "id": "Hkl_Noh1RqA",
+          "part": 6,
+          "ad": "Kod bilmeden web sitesi kurdum"
+        },
+        {
+          "id": "50wTOVk2X54",
+          "part": 7,
+          "ad": "Sync-av nasıl para kazanacak?"
+        },
+        {
+          "id": "vmoCEsp69fk",
+          "part": 8,
+          "ad": "Yapay zekâ ajanıyla büyütmek"
+        },
+        {
+          "id": "DfF7Z7_CSqs",
+          "part": 9,
+          "ad": "İlk olumlu dönüşler, strateji değişiyor"
+        }
+      ],
+      "marka": [
+        {
+          "id": "B1MXJX05SAI",
+          "ad": "Sync-av nedir?"
+        },
+        {
+          "id": "2p4U_3PWMoc",
+          "ad": "Etkinliğe bir hafta kala ses sistemi"
+        },
+        {
+          "id": "di2uw-B__5o",
+          "ad": "AV firmalarını tek tek aramayın"
+        }
+      ],
+      "yakinda": []
+    },
+    {
+      "no": "03",
+      "ad": "Syncscribe",
+      "renk": "#A08BFF",
+      "durum": "Yayında",
+      "slogan": "Herkes kendi dilinde dinler",
+      "metin": "Toplantı ve konferanslar için yapay zekâlı canlı çeviri ve transkript. Kabin, kablo ve alıcı cihaz gerekmez: katılımcılar uygulama indirmeden QR kodla, kendi telefonundan dinler. Sonunda transkript, yönetici özeti ve aksiyon maddeleri gelir.",
+      "site": "https://sync-scribe.co",
+      "siteAd": "sync-scribe.co",
+      "kanal": "https://www.youtube.com/@Syncscribe_co",
+      "kunye": [
+        "Part 10–12",
+        "Temmuz 2026",
+        "Canlı çeviri"
+      ],
+      "bolumler": [
+        {
+          "id": "KFhXhG1_QVA",
+          "part": 10,
+          "ad": "Toplantılar için yapay zekâ asistanı"
+        },
+        {
+          "id": "WyVSyAvdxA0",
+          "part": 11,
+          "ad": "Tek mikrofonla herkes kendi dilinde"
+        },
+        {
+          "id": "lCfVfkYlB9I",
+          "part": 12,
+          "ad": "Syncscribe bitti, sırada VetBrain"
+        }
+      ],
+      "marka": [
+        {
+          "id": "t4N1ot_6ItQ",
+          "ad": "Simultane çeviri için tek bilgisayar"
+        },
+        {
+          "id": "Pjo8Aj5Sljo",
+          "ad": "Konuşmacı dil değiştirse de akış kesilmez"
+        },
+        {
+          "id": "SNZCVWYglFI",
+          "ad": "Transkript ve aksiyon maddeleri e-postada"
+        },
+        {
+          "id": "uijsWojm77c",
+          "ad": "Önce ücretsiz demoyla görün"
+        }
+      ],
+      "yakinda": []
+    },
+    {
+      "no": "04",
+      "ad": "VetBrain",
+      "renk": "#2FC4B2",
+      "durum": "Şu an",
+      "simdi": true,
+      "slogan": "Akşama yazılacak not kalmaz",
+      "metin": "Veteriner hekimin muayene notunu muayene bitmeden bitiren asistan. Hekim hayvan sahibiyle konuşurken not tutulur, yapay zekâ bunu düzenli kayda çevirir, kontrol ve aşı tarihleri takvime düşer. Doz önerisi yok; kayıt hekim onaylamadan kesinleşmez.",
+      "site": "https://vetbrain.netlify.app",
+      "siteAd": "vetbrain.netlify.app",
+      "kunye": [
+        "Part 13–15",
+        "Ekim 2026",
+        "SaaS"
+      ],
+      "bolumler": [
+        {
+          "id": "RCt-gNm1sco",
+          "part": 13,
+          "ad": "Veterinerler için yapay zekâlı muayene notu"
+        }
+      ],
+      "marka": [],
+      "yakinda": [
+        {
+          "part": 14,
+          "ad": "Geliştirme: 10 aşamada uygulama"
+        },
+        {
+          "part": 15,
+          "ad": "İlerleme ve sıradaki adımlar"
+        }
+      ]
+    }
+  ],
+  "uzun": [],
+  "sirada": [
+    {
+      "kod": "PART 14",
+      "baslik": "VetBrain: geliştirme",
+      "alt": "10 aşamada uygulamanın nasıl kurulduğu.",
+      "part": 14
+    },
+    {
+      "kod": "PART 15",
+      "baslik": "VetBrain: ilerleme",
+      "alt": "Plan dışı eklenenler ve sıradaki adımlar.",
+      "part": 15
+    },
+    {
+      "kod": "UZUN 01",
+      "baslik": "İlk uzun video",
+      "alt": "Kısa bölümlere sığmayanlar: YouTube'da, yatay ve uzun.",
+      "uzun": 1
+    },
+    {
+      "kod": "GİRİŞİM 05",
+      "baslik": "Yeni şirket hazırlanıyor",
+      "alt": "İlk duyuru videolarda.",
+      "sabit": true
+    }
+  ]
+}
+    </script>
+
     <script>
-    /* ==========================================================================
-       İÇERİK — yeni bölüm ya da girişim eklemek için yalnız bu listeyi düzenle.
-       Video kimliği YouTube adresindeki 11 karakter (youtube.com/shorts/<kimlik>).
-       Kapak: public/img/v/<kimlik>.webp yoksa YouTube'un kendi kapağı kullanılır.
-       ========================================================================== */
-    const GIRISIMLER = [
-        {
-            no: '01', ad: 'Sümer Art Decoration', renk: '#FF8A5B', durum: 'Yayında',
-            slogan: 'Evinize sanat, duvarlarınıza karakter',
-            metin: 'Serinin ilk şirketi: yapay zekâ desteğiyle tasarlanan poster ve tablolar. 10 tematik koleksiyon ve sitede 9 odalı sanal ev turu var. E-ticaret sitesini 1 dolara kurup ilk satışı aldığım an Part 4’te.',
-            site: 'https://sumerartdecoration.com', siteAd: 'sumerartdecoration.com',
-            kanal: 'https://www.youtube.com/@sumerartdecoration', kunye: ['Part 1–4', 'Ocak 2026', 'Shopify'],
-            bolumler: [
-                ['-zvekcmUGCU', 1, 'Yolculuk başlıyor: 1. ay Sümer Art'],
-                ['dMlgYZHXRuc', 2, 'Yapay zekâyla tasarım süreci'],
-                ['rBFHXBoc0Sk', 3, 'Kişiye özel suluboya poster'],
-                ['heaEeMk4oRM', 4, '1 dolara e-ticaret sitesi ve ilk satış'],
-            ],
-            marka: [
-                ['MrFfUxcNFeU', 'Çerçeveye sığmayan tablolar'],
-                ['4QmQk-bta80', 'Hey Siri, mutfağı temizle!'],
-                ['N1pJOetxxjc', 'Banyon da espriyi hak ediyor'],
-                ['veoAvwVu9Ag', 'Bir mi, iki mi? Düşünmeden seç'],
-                ['M8P4aAlbKOA', 'Banyo duvarına okunacak bir şey'],
-            ],
-        },
-        {
-            no: '02', ad: 'Sync-av', renk: '#5B9BFF', durum: 'Yayında',
-            slogan: 'Tek form, birden fazla teklif',
-            metin: 'Etkinlik organizatörü ses, ışık, görüntü ve simultane çeviri ihtiyacını tek formla giriyor; referanslı AV firmalarından gelen teklifleri yan yana karşılaştırıyor. Organizatör için ücretsiz; AV firmaları için de atıl ekipmanı kazanca çevirmenin yolu.',
-            site: 'https://sync-av.co', siteAd: 'sync-av.co',
-            kanal: 'https://www.youtube.com/@syncavco', kunye: ['Part 5–9', 'Şubat 2026', 'B2B'],
-            bolumler: [
-                ['5_rCkpJkAk4', 5, 'Milyonluk cihazlar tozlanıyor'],
-                ['Hkl_Noh1RqA', 6, 'Kod bilmeden web sitesi kurdum'],
-                ['50wTOVk2X54', 7, 'Sync-av nasıl para kazanacak?'],
-                ['vmoCEsp69fk', 8, 'Yapay zekâ ajanıyla büyütmek'],
-                ['DfF7Z7_CSqs', 9, 'İlk olumlu dönüşler, strateji değişiyor'],
-            ],
-            marka: [
-                ['B1MXJX05SAI', 'Sync-av nedir?'],
-                ['2p4U_3PWMoc', 'Etkinliğe bir hafta kala ses sistemi'],
-                ['di2uw-B__5o', 'AV firmalarını tek tek aramayın'],
-            ],
-        },
-        {
-            no: '03', ad: 'Syncscribe', renk: '#A08BFF', durum: 'Yayında',
-            slogan: 'Herkes kendi dilinde dinler',
-            metin: 'Toplantı ve konferanslar için yapay zekâlı canlı çeviri ve transkript. Kabin, kablo ve alıcı cihaz gerekmez: katılımcılar uygulama indirmeden QR kodla, kendi telefonundan dinler. Sonunda transkript, yönetici özeti ve aksiyon maddeleri gelir.',
-            site: 'https://sync-scribe.co', siteAd: 'sync-scribe.co',
-            kanal: 'https://www.youtube.com/@Syncscribe_co', kunye: ['Part 10–12', 'Temmuz 2026', 'Canlı çeviri'],
-            bolumler: [
-                ['KFhXhG1_QVA', 10, 'Toplantılar için yapay zekâ asistanı'],
-                ['WyVSyAvdxA0', 11, 'Tek mikrofonla herkes kendi dilinde'],
-                ['lCfVfkYlB9I', 12, 'Syncscribe bitti, sırada VetBrain'],
-            ],
-            marka: [
-                ['t4N1ot_6ItQ', 'Simultane çeviri için tek bilgisayar'],
-                ['Pjo8Aj5Sljo', 'Konuşmacı dil değiştirse de akış kesilmez'],
-                ['SNZCVWYglFI', 'Transkript ve aksiyon maddeleri e-postada'],
-                ['uijsWojm77c', 'Önce ücretsiz demoyla görün'],
-            ],
-        },
-        {
-            no: '04', ad: 'VetBrain', renk: '#2FC4B2', durum: 'Şu an', simdi: true,
-            slogan: 'Akşama yazılacak not kalmaz',
-            metin: 'Veteriner hekimin muayene notunu muayene bitmeden bitiren asistan. Hekim hayvan sahibiyle konuşurken not tutulur, yapay zekâ bunu düzenli kayda çevirir, kontrol ve aşı tarihleri takvime düşer. Doz önerisi yok; kayıt hekim onaylamadan kesinleşmez.',
-            site: 'https://vetbrain.netlify.app', siteAd: 'vetbrain.netlify.app',
-            kunye: ['Part 13–15', 'Ekim 2026', 'SaaS'],
-            bolumler: [
-                ['RCt-gNm1sco', 13, 'Veterinerler için yapay zekâlı muayene notu'],
-            ],
-            yakinda: [[14, 'Geliştirme: 10 aşamada uygulama'], [15, 'İlerleme ve sıradaki adımlar']],
-        },
-    ];
-    const TOPLAM = 12;
+    const ICERIK = JSON.parse(document.getElementById('icerik').textContent);
+    const GIRISIMLER = ICERIK.girisimler;
+    const TOPLAM = ICERIK.toplam;
 
     document.addEventListener('DOMContentLoaded', () => {
         const $ = (s, k = document) => k.querySelector(s);
@@ -892,7 +1083,7 @@
         // --- Girişim bölümleri ---
         const tumVideolar = [];
         const videoKarti = (id, ust, ad, kucuk, liste) => {
-            const sira = tumVideolar.push({ id, ust, ad, liste }) - 1;
+            const sira = tumVideolar.push({ id, ust, ad, liste, yatay: false }) - 1;
             return `<button class="vid${kucuk ? ' kucuk' : ''}" data-sira="${sira}" aria-label="${kacis(ust + ': ' + ad)} videosunu oynat">
                 <img src="${kapak(id)}" alt="" loading="lazy" decoding="async" width="360" height="640" data-yedek="https://i.ytimg.com/vi/${id}/hqdefault.jpg">
                 <span class="ust-yazi">${kacis(ust)}</span>
@@ -911,14 +1102,14 @@
         let raySay = 0;
         GIRISIMLER.forEach((g) => {
             const listeAd = 'g' + g.no;
-            let seri = g.bolumler.map(([id, part, ad]) => videoKarti(id, 'PART ' + String(part).padStart(2, '0'), ad, false, listeAd)).join('');
-            (g.yakinda || []).forEach(([part, ad]) => {
+            let seri = g.bolumler.map(({ id, part, ad }) => videoKarti(id, 'PART ' + String(part).padStart(2, '0'), ad, false, listeAd)).join('');
+            (g.yakinda || []).forEach(({ part, ad }) => {
                 seri += `<div class="vid yakinda" aria-label="Part ${part}, yakında"><span class="ust-yazi">PART ${String(part).padStart(2, '0')}</span><span class="ad">Yakında · ${kacis(ad)}</span></div>`;
             });
             let raylar = ray(`<b><span lang="en">12in12</span> serisi</b> · ${g.bolumler.length} bölüm`, seri, raySay++);
             if (g.marka && g.marka.length) {
                 const markaListe = 'm' + g.no;
-                const kartlar = g.marka.map(([id, ad]) => videoKarti(id, g.ad.split(' ')[0].toUpperCase(), ad, true, markaListe)).join('');
+                const kartlar = g.marka.map(({ id, ad }) => videoKarti(id, g.ad.split(' ')[0].toUpperCase(), ad, true, markaListe)).join('');
                 raylar += ray(`<b lang="en">${kacis(g.ad)}</b> kanalından`, kartlar, raySay++);
             }
             const kunye = g.kunye.map((k) => `<li>${kacis(k)}</li>`).join('');
@@ -939,6 +1130,34 @@
             </article>`;
         });
         $('#bolumler').innerHTML = html;
+
+        // Sayılar ve rozet
+        const simdiki = GIRISIMLER.find((g) => g.simdi);
+        $('#sayiGirisim').textContent = GIRISIMLER.length;
+        $('#sayiBolum').textContent = GIRISIMLER.reduce((t, g) => t + g.bolumler.length, 0);
+        $('#yolSayac').firstChild.textContent = String(GIRISIMLER.length).padStart(2, '0');
+        $('#yolSayac').setAttribute('aria-label', `${TOPLAM} girişimden ${GIRISIMLER.length}'i`);
+        if (simdiki) $('#suAn').textContent = 'Şu an: ' + simdiki.ad;
+
+        // Uzun videolar (en yenisi önce)
+        const uzunlar = (ICERIK.uzun || []).slice().sort((a, b) => b.no - a.no);
+        if (uzunlar.length) {
+            $('#uzunIzgara').innerHTML = uzunlar.map((u) => {
+                const sira = tumVideolar.push({ id: u.id, ust: 'UZUN ' + String(u.no).padStart(2, '0'), ad: u.ad, liste: 'uzun', yatay: true }) - 1;
+                return `<button class="vid yatay" data-sira="${sira}" style="--renk:var(--sari)" aria-label="${kacis(u.ad)} videosunu oynat">
+                    <img src="https://i.ytimg.com/vi/${u.id}/maxresdefault.jpg" alt="" loading="lazy" decoding="async" width="1280" height="720" data-yedek="https://i.ytimg.com/vi/${u.id}/hqdefault.jpg">
+                    <span class="ust-yazi">UZUN ${String(u.no).padStart(2, '0')}</span>
+                    <span class="oynat">${ikon('oynat')}</span>
+                    <span class="ad">${kacis(u.ad)}</span>
+                </button>`;
+            }).join('');
+            $('#uzun').hidden = false;
+            document.querySelectorAll('.uzun-link').forEach((a) => { a.hidden = false; });
+        }
+
+        // Sırada listesi
+        $('#siradaListe').innerHTML = (ICERIK.sirada || []).map((m) =>
+            `<li><span class="kod">${kacis(m.kod)}</span><b>${kacis(m.baslik)}</b><span>${kacis(m.alt || '')}</span></li>`).join('');
 
         // Yerel kapak yoksa YouTube kapağına düş
         document.querySelectorAll('img[data-yedek]').forEach((img) => {
@@ -975,7 +1194,8 @@
             const v = tumVideolar[i];
             cerceve.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&playsinline=1&modestbranding=1" title="${kacis(v.ad)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
             $('#oynBaslik').innerHTML = `<small>${kacis(v.ust)}</small>${kacis(v.ad)}`;
-            $('#oynLink').href = `https://www.youtube.com/shorts/${v.id}`;
+            $('#oynLink').href = v.yatay ? `https://www.youtube.com/watch?v=${v.id}` : `https://www.youtube.com/shorts/${v.id}`;
+            pencere.classList.toggle('yatay', v.yatay);
             const liste = ayniListe(i);
             const yer = liste.indexOf(v);
             onceki.disabled = yer <= 0;
@@ -995,7 +1215,7 @@
             const hedef = liste[liste.indexOf(tumVideolar[aktif]) + yon];
             if (hedef) oynat(tumVideolar.indexOf(hedef));
         };
-        $('#bolumler').addEventListener('click', (e) => {
+        document.querySelector('main').addEventListener('click', (e) => {
             const kart = e.target.closest('.vid[data-sira]');
             if (kart) oynat(Number(kart.dataset.sira));
         });
