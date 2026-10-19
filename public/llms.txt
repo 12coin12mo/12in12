@@ -1,0 +1,25 @@
+# 12in12
+
+> 12in12, on iki ay boyunca on iki girişimi sıfırdan, yapay zekâ araçlarıyla ve ekip kurmadan kurma denemesi. Ocak 2026'da başladı. Her girişimin canlı bir sitesi ya da uygulaması var; süreç (strateji, maliyet, hatalar) YouTube, Instagram ve TikTok'ta bölüm bölüm paylaşılıyor. Dil: Türkçe.
+
+İlkeler: paylaşılan her sayı gerçek veriden gelir; işe yaramayan fikirler de anlatılır; "ayda şu kadar kazan" vaadi yoktur.
+
+## Girişimler
+
+- [Sümer Art Decoration](https://sumerartdecoration.com): Girişim 01. Yapay zekâ desteğiyle tasarlanan poster ve tablolar; tematik koleksiyonlar ve sitede sanal ev turu. Shopify üzerinde, Türkiye'ye gönderim.
+- [Sync-av](https://sync-av.co): Girişim 02. Etkinlik organizatörü ses, ışık, LED ekran ve simultane çeviri ihtiyacını tek formla giriyor; referanslı AV firmalarından gelen teklifleri karşılaştırıyor. Organizatör için ücretsiz. İngilizce sayfa: https://sync-av.co/en
+- [Syncscribe](https://sync-scribe.co): Girişim 03. Toplantı ve konferanslar için yapay zekâlı canlı çeviri ve transkript. Katılımcılar uygulama indirmeden QR kodla kendi telefonundan dinler; sonunda transkript, yönetici özeti ve aksiyon maddeleri gelir.
+- [VetBrain](https://vetbrain.netlify.app): Girişim 04. Veteriner hekimler için muayene notu asistanı; konuşmadan düzenli kayıt, kontrol ve aşı tarihleri takvime düşer. Doz önerisi yapmaz; kayıt hekim onaylamadan kesinleşmez.
+
+## Videolar ve hesaplar
+
+- [YouTube @12Coin12Mo](https://www.youtube.com/@12Coin12Mo): bütün bölümler (Part 1, 2, ...) ve haftalık uzun videolar
+- [Instagram @12coin12mo](https://www.instagram.com/12coin12mo/)
+- [TikTok @12coin12mo](https://www.tiktok.com/@12coin12mo)
+- [X @12Coin12Mo](https://x.com/12Coin12Mo)
+
+## İletişim
+
+- E-posta: build@12in12.co
+- [Gizlilik politikası](https://12in12.co/gizlilik)
+- [Kullanım koşulları](https://12in12.co/kosullar)

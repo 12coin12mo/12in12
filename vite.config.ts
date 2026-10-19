@@ -1,12 +1,33 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig, loadEnv} from 'vite';
+import {defineConfig, loadEnv, type Plugin} from 'vite';
+
+// Arama motorları için tazelik sinyali: her derlemede sitemap.xml'in lastmod'u ve index.html'deki JSON-LD
+// dateModified derleme gününe ayarlanır (otomatik video güncellemesi de derleme yaptığı için kendiliğinden tazelenir).
+function tazelik(): Plugin {
+  const gun = new Date().toLocaleDateString('sv-SE', {timeZone: 'Europe/Istanbul'});
+  const sayfalar = ['/', '/gizlilik', '/kosullar'];
+  return {
+    name: 'tazelik',
+    transformIndexHtml: (html) => html.replaceAll('__DERLEME_GUNU__', gun),
+    generateBundle() {
+      const url = sayfalar
+        .map((p) => `  <url>\n    <loc>https://12in12.co${p}</loc>\n    <lastmod>${gun}</lastmod>\n  </url>`)
+        .join('\n');
+      this.emitFile({
+        type: 'asset',
+        fileName: 'sitemap.xml',
+        source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${url}\n</urlset>\n`,
+      });
+    },
+  };
+}
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), tazelik()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },

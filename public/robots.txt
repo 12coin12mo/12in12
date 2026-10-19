@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://12in12.co/sitemap.xml
