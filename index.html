@@ -395,7 +395,8 @@
 
         /* ---------- Uzun videolar ---------- */
         .uzunlar { padding: 72px 0 0; }
-        .uzun-izgara { display: grid; gap: 16px; margin-top: 40px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        .uzun-izgara { display: grid; gap: 16px; margin-top: 40px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+        @media (min-width: 900px) { .uzun-izgara > :first-child { grid-column: span 2; } }
         .vid.yatay { width: 100%; aspect-ratio: 16 / 9; border-radius: 18px; }
         .vid.yatay .ad { font-size: clamp(15px, 1.4vw, 18px); -webkit-line-clamp: 2; bottom: 16px; left: 16px; right: 16px; }
         .vid.yatay .ust-yazi { left: 14px; top: 14px; background: var(--sari); }
