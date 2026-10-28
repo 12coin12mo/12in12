@@ -164,6 +164,11 @@
         .dugme-cizgi:hover { border-color: var(--sari); color: var(--sari); }
         .dugme-kucuk { height: 40px; padding: 0 16px; font-size: 14px; }
 
+        /* Klavye kullanıcısı için "İçeriğe geç": yalnız odaklanınca görünür, üst menünün üstünde (2026-10-28) */
+        .atla { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--sari); color: #0B0B0C; padding: 8px 12px; border-radius: 8px; font-weight: 600; text-decoration: none; }
+        .atla:focus { left: 8px; }
+        #icerik:focus { outline: none; }
+
         /* ---------- Üst menü ---------- */
         .ust {
             position: sticky; top: 0; z-index: 50;
@@ -614,6 +619,7 @@
         <symbol id="i-ayak" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
     </svg>
 
+    <a class="atla" href="#icerik">İçeriğe geç</a>
     <header class="ust" id="ust">
         <div class="kap">
             <a class="logo" href="#" aria-label="12in12 ana sayfa">
@@ -660,7 +666,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="icerik" tabindex="-1">
         <!-- Giriş -->
         <section class="giris">
             <div class="kap">
