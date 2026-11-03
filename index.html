@@ -690,14 +690,13 @@
                     <svg class="gunes" viewBox="-100 -100 200 200" id="gunes"></svg>
                     <img class="maskot" src="/img/maskot-laptop.webp" width="749" height="900" alt="">
                     <div class="rozet rozet-1"><span class="nokta"></span><span id="suAn">Şu an: VetBrain</span></div>
-                    <div class="rozet rozet-2">Sırada <b>Girişim 05</b></div>
+                    <div class="rozet rozet-2">Sırada <b id="siradakiNo">Girişim 05</b></div>
                 </div>
             </div>
 
             <div class="serit" aria-hidden="true">
                 <div class="serit-ic">
-                    <span>Sümer Art</span><span lang="en">Sync-av</span><span lang="en">Syncscribe</span><span lang="en">VetBrain</span><span>Sırada ne var?</span><span>Herkesin önünde</span>
-                    <span>Sümer Art</span><span lang="en">Sync-av</span><span lang="en">Syncscribe</span><span lang="en">VetBrain</span><span>Sırada ne var?</span><span>Herkesin önünde</span>
+                    <!-- veriden doldurulur -->
                 </div>
             </div>
         </section>
@@ -1033,14 +1032,13 @@
       "no": "04",
       "ad": "VetBrain",
       "renk": "#2FC4B2",
-      "durum": "Şu an",
-      "simdi": true,
+      "durum": "Yayında",
       "slogan": "Akşama yazılacak not kalmaz",
       "metin": "Veteriner hekimin muayene notunu muayene bitmeden bitiren asistan. Hekim hayvan sahibiyle konuşurken not tutulur, yapay zekâ bunu düzenli kayda çevirir, kontrol ve aşı tarihleri takvime düşer. Doz önerisi yok; kayıt hekim onaylamadan kesinleşmez.",
       "site": "https://vetbrain.netlify.app",
       "siteAd": "vetbrain.netlify.app",
       "kunye": [
-        "Part 13–15",
+        "Part 13–16",
         "Ekim 2026",
         "SaaS"
       ],
@@ -1068,6 +1066,36 @@
       ],
       "marka": [],
       "yakinda": []
+    },
+    {
+      "no": "05",
+      "ad": "Dekor Asistanı",
+      "renk": "#C9974A",
+      "durum": "Şu an",
+      "simdi": true,
+      "slogan": "Yapacağın iş, müşterinin evinde böyle duracak",
+      "metin": "Mobilya ve dekorasyon ustaları için yapay zekâlı görselleştirme uygulaması. Usta odanın fotoğrafını çekiyor, ölçüleri ve \"ne nereye gelecek\" notunu giriyor, stil kataloğundan seçiyor; yarım dakikada müşteriye gösterilecek temsilî görsel hazır.",
+      "site": "https://dekor-asistani.netlify.app",
+      "siteAd": "dekor-asistani.netlify.app",
+      "kunye": [
+        "Part 17+",
+        "Ekim 2026",
+        "PWA"
+      ],
+      "bolumler": [
+        {
+          "id": "9hbMKJJhJLA",
+          "part": 17,
+          "ad": "Yeni Girişim: Dekor Asistanı, Ustalar İçin Yapay Zekâ"
+        }
+      ],
+      "marka": [],
+      "yakinda": [
+        {
+          "part": 18,
+          "ad": "Hangi soruna nasıl çözüm"
+        }
+      ]
     }
   ],
   "uzun": [
@@ -1079,13 +1107,19 @@
   ],
   "sirada": [
     {
+      "kod": "PART 18",
+      "baslik": "Dekor Asistanı: hangi soruna nasıl çözüm",
+      "alt": "",
+      "part": 18
+    },
+    {
       "kod": "UZUN 02",
       "baslik": "Yeni uzun video",
       "alt": "YouTube'da, yatay ve uzun.",
       "uzun": 2
     },
     {
-      "kod": "GİRİŞİM 05",
+      "kod": "GİRİŞİM 06",
       "baslik": "Yeni şirket hazırlanıyor",
       "alt": "İlk duyuru videolarda.",
       "sabit": true
@@ -1194,6 +1228,9 @@
         $('#yolSayac').firstChild.textContent = String(GIRISIMLER.length).padStart(2, '0');
         $('#yolSayac').setAttribute('aria-label', `${TOPLAM} girişimden ${GIRISIMLER.length}'i`);
         if (simdiki) $('#suAn').textContent = 'Şu an: ' + simdiki.ad;
+        $('#siradakiNo').textContent = 'Girişim ' + String(GIRISIMLER.length + 1).padStart(2, '0');
+        const seritParca = GIRISIMLER.map((g) => `<span lang="${/[çğıöşüÇĞİÖŞÜ]/.test(g.ad) ? 'tr' : 'en'}">${kacis(g.ad.replace(' Decoration', ''))}</span>`).join('') + '<span>Sırada ne var?</span><span>Herkesin önünde</span>';
+        document.querySelector('.serit-ic').innerHTML = seritParca + seritParca;
 
         // Uzun videolar (en yenisi önce)
         const uzunlar = (ICERIK.uzun || []).slice().sort((a, b) => b.no - a.no);
