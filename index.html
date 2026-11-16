@@ -71,7 +71,7 @@
     <!-- Bu sayfada çerez, analiz ya da reklam izleme kodu yoktur. YouTube oynatıcısı yalnız bir videoya tıklanınca yüklenir. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
     <link rel="preload" as="image" href="/img/maskot-laptop.webp" type="image/webp">
 
     <style>
@@ -595,6 +595,100 @@
             *, *::before, *::after { animation: none !important; transition: none !important; }
             .js .belir { opacity: 1; transform: none; }
         }
+        /* ===== ÖNİZLEME: maskotlu açılış (16.11.2026) ===== */
+        :root { --m-zemin-1: #121214; --m-zemin-2: #0B0B0C; --m-isik: rgba(255, 212, 0, 0.22); --m-desen: rgba(255,255,255,.035); }
+        :root[data-zemin="mavi"] { --m-zemin-1: #3346E8; --m-zemin-2: #1C27A8; --m-isik: rgba(255, 255, 255, 0.20); --m-desen: rgba(255,255,255,.07); }
+        :root[data-zemin="mor"] { --m-zemin-1: #6B3CE0; --m-zemin-2: #3A1C8F; --m-isik: rgba(255, 212, 0, 0.18); --m-desen: rgba(255,255,255,.06); }
+
+        .giris-m { position: relative; padding: 0; overflow: hidden; isolation: isolate; }
+        .giris-m .m-zemin { position: absolute; inset: 0; z-index: -1;
+            background: radial-gradient(80% 90% at 68% 45%, var(--m-zemin-1), var(--m-zemin-2) 75%); }
+        .giris-m .m-isik { position: absolute; width: 760px; height: 760px; right: 6%; top: 50%; translate: 0 -46%;
+            border-radius: 50%; background: radial-gradient(circle, var(--m-isik), transparent 62%); }
+        .giris-m .m-desen { position: absolute; inset: 0;
+            background-image: linear-gradient(var(--m-desen) 1px, transparent 1px), linear-gradient(90deg, var(--m-desen) 1px, transparent 1px);
+            background-size: 64px 64px; mask-image: radial-gradient(70% 70% at 65% 45%, #000, transparent); }
+        .giris-m .m-yan { position: absolute; left: 14px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left center;
+            font: 500 11px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.4); white-space: nowrap; display: none; }
+        @media (min-width: 1100px) { .giris-m .m-yan { display: block; left: 22px; } }
+
+        .giris-m .m-kap { display: grid; gap: 8px; align-items: center; min-height: min(86vh, 820px); padding-top: 32px; padding-bottom: 8px; }
+        @media (min-width: 900px) { .giris-m .m-kap { grid-template-columns: 0.95fr 1.05fr; gap: 16px; padding-top: 24px; } }
+
+        .m-rozet { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px 8px 12px; border-radius: 999px;
+            background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(10px);
+            font: 500 13px/1 var(--govde); color: #E4E4E7; }
+        .m-rozet b { color: var(--sari); font-weight: 700; }
+        .m-rozet .nokta, .m-kart-baslik .nokta { width: 8px; height: 8px; border-radius: 50%; background: var(--yesil); box-shadow: 0 0 0 4px rgba(61,220,132,.2); animation: nabiz 1.8s ease-in-out infinite; }
+
+        .giris-m h1 { margin: 22px 0 0; font: 400 clamp(64px, 9.2vw, 132px)/0.9 var(--baslik); text-transform: uppercase; letter-spacing: .005em; }
+        .giris-m h1 .satir { display: block; }
+        .giris-m h1 .m-serif { font: italic 400 clamp(64px, 9vw, 128px)/1 'Instrument Serif', Georgia, serif; text-transform: none; color: var(--sari); letter-spacing: -0.01em; margin-top: 4px; }
+        .giris-m .ozet { margin-top: 26px; max-width: 470px; color: rgba(255,255,255,.82); }
+        .giris-m .dugmeler { align-items: center; gap: 20px; margin-top: 30px; }
+        .m-durt { display: inline-flex; align-items: center; gap: 10px; background: none; border: 0; padding: 0; cursor: pointer;
+            font: 600 15px/1 var(--govde); color: #fff; }
+        .m-durt-ikon { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.3); transition: background .2s, border-color .2s; }
+        .m-durt-ikon svg { width: 12px; height: 12px; margin-left: 2px; }
+        .m-durt:hover .m-durt-ikon { background: var(--sari); border-color: var(--sari); color: #0B0B0C; }
+        .giris-m .m-sayilar { margin-top: 36px; }
+        .giris-m .m-sayilar small { color: rgba(255,255,255,.45); font-size: .5em; margin-left: 2px; }
+
+        .m-sahne { position: relative; height: clamp(440px, 74vh, 760px); }
+        .m-golge { position: absolute; left: 40%; bottom: 4%; width: 46%; height: 34px; translate: -50% 0; border-radius: 50%;
+            background: radial-gradient(closest-side, rgba(0,0,0,.55), transparent); animation: golge 4.8s ease-in-out infinite; }
+        .m-kedi { position: absolute; left: 40%; bottom: 4%; height: 100%; width: auto; max-width: none; translate: -50% 0;
+            transform-origin: 50% 100%; animation: nefes 4.8s ease-in-out infinite; cursor: pointer;
+            filter: drop-shadow(0 30px 40px rgba(0,0,0,.35)); transition: opacity .18s; user-select: none; }
+        .m-kedi.zipla { animation: zipla .55s cubic-bezier(.3,1.6,.5,1); }
+        @keyframes nefes { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.012); } }
+        @keyframes golge { 0%,100% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(.9); opacity: .75; } }
+        @keyframes zipla { 0% { transform: translateY(0) scale(1); } 35% { transform: translateY(-34px) scale(1.03,.97); } 70% { transform: translateY(0) scale(1.04,.95); } 100% { transform: none; } }
+
+        .m-kart { position: absolute; z-index: 2; border-radius: 18px; padding: 14px 16px; color: #fff;
+            background: rgba(20,20,24,.42); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(14px);
+            box-shadow: 0 20px 50px rgba(0,0,0,.28); }
+        .m-kart-ust { right: 0; top: 10%; width: 200px; }
+        .m-kart-baslik { display: flex; align-items: center; gap: 8px; font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+        .m-ilerleme { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+        .m-ilerleme .gunes { width: 64px; height: 64px; flex: none; }
+        .m-ilerleme b { display: block; font: 400 34px/1 var(--baslik); }
+        .m-ilerleme span { font-size: 12px; color: rgba(255,255,255,.65); }
+        .m-kart-ust .m-kart-alt { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.12); font: italic 400 19px/1.1 'Instrument Serif', Georgia, serif; }
+
+        .m-kart-alt-sag { right: 0; bottom: 4%; width: 270px; display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: center; }
+        .m-kucuk-kedi { width: 52px; height: 64px; object-fit: cover; object-position: top; border-radius: 12px; background: rgba(255,212,0,.18); }
+        .m-kod { display: inline-block; font: 700 10px/1 var(--mono); letter-spacing: .1em; background: var(--sari); color: #0B0B0C; padding: 4px 6px; border-radius: 5px; }
+        .m-sira-baslik { margin-top: 6px; font-weight: 700; font-size: 14px; line-height: 1.25; }
+        .m-sira-alt { font-size: 12px; color: rgba(255,255,255,.62); }
+        .m-oklar { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 6px; margin-top: -4px; }
+        .m-oklar button { width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); background: none; display: grid; place-items: center; cursor: pointer; color: #fff; }
+        .m-oklar button:hover { background: #fff; color: #0B0B0C; }
+        .m-oklar svg { width: 14px; height: 14px; }
+
+        @media (max-width: 899px) {
+            .giris-m .m-kap { min-height: 0; padding-top: 20px; gap: 0; }
+            .giris-m h1 { margin-top: 16px; }
+            .giris-m .ozet { margin-top: 18px; font-size: 16px; }
+            .giris-m .dugmeler { margin-top: 22px; }
+            .giris-m .m-sayilar { display: none; }
+            .m-sahne { height: 400px; margin-top: 4px; }
+            .m-kedi, .m-golge { left: 34%; }
+            .m-kedi { height: 94%; }
+            .m-kart { padding: 10px 12px; border-radius: 14px; }
+            .m-kart-ust { top: 4%; right: 0; width: 150px; }
+            .m-kart-baslik { font-size: 9px; }
+            .m-ilerleme { margin-top: 8px; gap: 8px; }
+            .m-ilerleme .gunes { width: 40px; height: 40px; }
+            .m-ilerleme b { font-size: 24px; }
+            .m-kart-ust .m-kart-alt { font-size: 15px; margin-top: 8px; padding-top: 8px; }
+            .m-kart-alt-sag { bottom: 2%; right: 0; width: 200px; grid-template-columns: 40px 1fr; gap: 10px; }
+            .m-kucuk-kedi { width: 40px; height: 50px; }
+            .m-sira-baslik { font-size: 13px; }
+            .m-oklar { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) { .m-kedi, .m-golge, .m-rozet .nokta { animation: none; } }
+
     </style>
     <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -668,29 +762,52 @@
 
     <main id="ana" tabindex="-1">
         <!-- Giriş -->
-        <section class="giris">
-            <div class="kap">
-                <div>
-                    <div class="etiket">‹ <b lang="en">12in12</b> — herkesin önünde girişimcilik ›</div>
-                    <h1><span class="satir">12 ayda</span><span class="satir sari">12 şirket.</span></h1>
+        <!-- ÖNİZLEME (16.11.2026): maskotlu açılış. Referans: _kaydedilenler/093 (Scrolltide maymun sayfası). Canlıda değil. -->
+        <section class="giris giris-m">
+            <div class="m-zemin" aria-hidden="true"><div class="m-isik"></div><div class="m-desen"></div></div>
+            <div class="m-yan" aria-hidden="true">Serhat · 2026 · herkesin önünde</div>
+            <div class="kap m-kap">
+                <div class="m-sol">
+                    <div class="m-rozet"><span class="nokta"></span><span>Şimdi yayında · <b id="mSonPart">Part 19</b></span></div>
+                    <h1><span class="satir">12 ayda</span><span class="satir m-serif">12 şirket.</span></h1>
                     <p class="ozet">Her birini <strong>sıfırdan</strong>, <strong>yapay zekâyla</strong> ve <strong>tek başıma</strong> kuruyorum. Kazandığım da, kaybettiğim de, yaptığım hatalar da videolarda.</p>
                     <div class="dugmeler">
                         <a class="dugme dugme-sari" href="#girisimler"><svg><use href="#i-oynat"/></svg>Bölümleri izle</a>
-                        <a class="dugme dugme-cizgi" href="#hakkinda">Ne yapıyorum?</a>
+                        <button class="m-durt" id="mDurt" type="button"><span class="m-durt-ikon"><svg><use href="#i-oynat"/></svg></span>Kediyi dürt</button>
                     </div>
-                    <div class="sayilar">
-                        <div><b><span id="sayiGirisim">4</span><span style="display:inline;color:var(--sonuk);font-size:.5em;margin:0 0 0 2px">/12</span></b><span>girişim yayında</span></div>
-                        <div><b id="sayiBolum">13</b><span>bölüm yayınlandı</span></div>
-                        <div><b>01.26</b><span>Ocak 2026'da başladı</span></div>
+                    <div class="sayilar m-sayilar">
+                        <div><b><span id="sayiGirisim">4</span><small>/12</small></b><span>girişim yayında</span></div>
+                        <div><b id="sayiBolum">13</b><span>bölüm</span></div>
+                        <div><b>01.26</b><span>başlangıç</span></div>
                     </div>
                 </div>
 
-                <div class="sahne" aria-hidden="true">
-                    <div class="isik"></div>
-                    <svg class="gunes" viewBox="-100 -100 200 200" id="gunes"></svg>
-                    <img class="maskot" src="/img/maskot-laptop.webp" width="749" height="900" alt="">
-                    <div class="rozet rozet-1"><span class="nokta"></span><span id="suAn">Şu an: VetBrain</span></div>
-                    <div class="rozet rozet-2">Sırada <b id="siradakiNo">Girişim 05</b></div>
+                <div class="m-sahne">
+                    <div class="m-golge" aria-hidden="true"></div>
+                    <img class="m-kedi" id="mKedi" src="/img/kedi-01-ana.webp" width="821" height="1100" alt="12in12'nin maskotu: gözlüklü, sarı kapüşonlu tekir kedi">
+
+                    <div class="m-kart m-kart-ust" aria-label="İlerleme">
+                        <div class="m-kart-baslik"><span class="nokta"></span>Canlı ilerleme</div>
+                        <div class="m-ilerleme">
+                            <svg class="gunes" viewBox="-100 -100 200 200" id="gunes" aria-hidden="true"></svg>
+                            <div><b id="mSayac">05/12</b><span>girişim</span></div>
+                        </div>
+                        <div class="m-kart-alt" id="suAn">Şu an: Dekor Asistanı</div>
+                    </div>
+
+                    <div class="m-kart m-kart-alt-sag" aria-label="Sırada">
+                        <img src="/img/maskot-dusunen.webp" width="304" height="640" alt="" class="m-kucuk-kedi">
+                        <div class="m-sira-yazi">
+                            <div class="m-kod" id="mSiraKod">UZUN 03</div>
+                            <div class="m-sira-baslik" id="mSiraBaslik">Yeni uzun video</div>
+                            <div class="m-sira-alt" id="mSiraAlt">YouTube'da, yatay ve uzun.</div>
+                        </div>
+                        <div class="m-oklar">
+                            <button type="button" id="mSiraGeri" aria-label="Önceki"><svg><use href="#i-sol"/></svg></button>
+                            <button type="button" id="mSiraIleri" aria-label="Sonraki"><svg><use href="#i-sag"/></svg></button>
+                        </div>
+                        <span hidden>Sırada <b id="siradakiNo">Girişim 06</b></span>
+                    </div>
                 </div>
             </div>
 
@@ -1363,6 +1480,58 @@
             ogeler.forEach((o) => gozcu.observe(o));
         } else {
             ogeler.forEach((o) => o.classList.add('gorundu'));
+        }
+    });
+    </script>
+
+    <!-- ÖNİZLEME: maskotlu açılış davranışı -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Zemin seçimi önizlemede adresle: ?zemin=mavi | mor | (boş = siyah)
+        const z = new URLSearchParams(location.search).get('zemin');
+        if (z) document.documentElement.dataset.zemin = z;
+
+        // Son Part ve sayaç veriden
+        const tum = GIRISIMLER.flatMap((g) => g.bolumler.map((b) => b.part));
+        if (tum.length) document.getElementById('mSonPart').textContent = 'Part ' + Math.max(...tum);
+        document.getElementById('mSayac').textContent = String(GIRISIMLER.length).padStart(2, '0') + '/' + TOPLAM;
+
+        // Sırada kartı: sirada[] arasında gezinir
+        const sira = ICERIK.sirada || [];
+        let si = 0;
+        const siraGoster = () => {
+            const s = sira[si]; if (!s) return;
+            document.getElementById('mSiraKod').textContent = s.kod;
+            document.getElementById('mSiraBaslik').textContent = s.baslik;
+            document.getElementById('mSiraAlt').textContent = s.alt;
+        };
+        siraGoster();
+        document.getElementById('mSiraIleri').addEventListener('click', () => { si = (si + 1) % sira.length; siraGoster(); });
+        document.getElementById('mSiraGeri').addEventListener('click', () => { si = (si - 1 + sira.length) % sira.length; siraGoster(); });
+
+        // Kediyi dürt: poz değişir, zıplar
+        const kedi = document.getElementById('mKedi');
+        const pozlar = ['01-ana', '07-sevinc', '13-el-sallama', '02-saskin', '12-coin-atma', '05-isaret-sag'];
+        pozlar.forEach((p) => { const i = new Image(); i.src = `/img/kedi-${p}.webp`; });
+        let pi = 0;
+        const durt = () => {
+            pi = (pi + 1) % pozlar.length;
+            kedi.src = `/img/kedi-${pozlar[pi]}.webp`;
+            kedi.classList.remove('zipla'); void kedi.offsetWidth; kedi.classList.add('zipla');
+        };
+        kedi.addEventListener('click', durt);
+        document.getElementById('mDurt').addEventListener('click', durt);
+        kedi.addEventListener('animationend', (e) => { if (e.animationName === 'zipla') kedi.classList.remove('zipla'); });
+
+        // Fareyle hafif derinlik (masaüstü)
+        const sahne = document.querySelector('.m-sahne');
+        if (matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelector('.giris-m').addEventListener('mousemove', (e) => {
+                const r = sahne.getBoundingClientRect();
+                const dx = (e.clientX - (r.left + r.width / 2)) / r.width, dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+                kedi.style.translate = `calc(-50% + ${dx * 14}px) ${dy * 8}px`;
+                document.querySelectorAll('.m-kart').forEach((k, i) => { k.style.translate = `${dx * (i ? -10 : -18)}px ${dy * (i ? -6 : -10)}px`; });
+            });
         }
     });
     </script>
