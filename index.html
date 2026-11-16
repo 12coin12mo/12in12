@@ -595,11 +595,9 @@
             *, *::before, *::after { animation: none !important; transition: none !important; }
             .js .belir { opacity: 1; transform: none; }
         }
-        /* ===== ÖNİZLEME: maskotlu açılış (16.11.2026) ===== */
+        /* ===== Maskotlu açılış (16.11.2026; referans _kaydedilenler/093) ===== */
         :root { --m-zemin-1: #121214; --m-zemin-2: #0B0B0C; --m-isik: rgba(255, 212, 0, 0.22); --m-desen: rgba(255,255,255,.035); }
-        :root[data-zemin="mavi"] { --m-zemin-1: #3346E8; --m-zemin-2: #1C27A8; --m-isik: rgba(255, 255, 255, 0.20); --m-desen: rgba(255,255,255,.07); }
-        :root[data-zemin="mor"] { --m-zemin-1: #6B3CE0; --m-zemin-2: #3A1C8F; --m-isik: rgba(255, 212, 0, 0.18); --m-desen: rgba(255,255,255,.06); }
-
+                
         .giris-m { position: relative; padding: 0; overflow: hidden; isolation: isolate; }
         .giris-m .m-zemin { position: absolute; inset: 0; z-index: -1;
             background: radial-gradient(80% 90% at 68% 45%, var(--m-zemin-1), var(--m-zemin-2) 75%); }
@@ -762,7 +760,7 @@
 
     <main id="ana" tabindex="-1">
         <!-- Giriş -->
-        <!-- ÖNİZLEME (16.11.2026): maskotlu açılış. Referans: _kaydedilenler/093 (Scrolltide maymun sayfası). Canlıda değil. -->
+        <!-- Maskotlu açılış (16.11.2026) -->
         <section class="giris giris-m">
             <div class="m-zemin" aria-hidden="true"><div class="m-isik"></div><div class="m-desen"></div></div>
             <div class="m-yan" aria-hidden="true">Serhat · 2026 · herkesin önünde</div>
@@ -1484,13 +1482,9 @@
     });
     </script>
 
-    <!-- ÖNİZLEME: maskotlu açılış davranışı -->
+    <!-- Maskotlu açılış davranışı -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Zemin seçimi önizlemede adresle: ?zemin=mavi | mor | (boş = siyah)
-        const z = new URLSearchParams(location.search).get('zemin');
-        if (z) document.documentElement.dataset.zemin = z;
-
         // Son Part ve sayaç veriden
         const tum = GIRISIMLER.flatMap((g) => g.bolumler.map((b) => b.part));
         if (tum.length) document.getElementById('mSonPart').textContent = 'Part ' + Math.max(...tum);
